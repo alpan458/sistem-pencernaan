@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Ajar: Sistem Pencernaan Manusia (IPA Kelas 8)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap'); 
+
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            line-height: 2.5rem;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #059669; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #047857; }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .lab-beaker {
+            transition: all 0.5s ease-in-out;
+        }
+        
+        .organ-card {
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .organ-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Game slots */
+        .slot-correct {
+            background-color: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="bg-emerald-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-stethoscope text-2xl mr-3 text-emerald-300"></i>
+                    <span class="font-bold text-xl tracking-tight">IPA Edu <span class="text-emerald-200">MTsN 1 Mlg</span></span>
+                </div>
+                <div class="hidden md:flex items-center space-x-2">
+                    <button onclick="openTab('materi')" class="tab-btn hover:bg-emerald-800 px-3 py-2 rounded-md font-medium transition" data-target="materi">Materi Detail</button>
+                    <button onclick="openTab('islam')" class="tab-btn hover:bg-emerald-800 px-3 py-2 rounded-md font-medium transition" data-target="islam">Integrasi Islam</button>
+                    <button onclick="openTab('lab')" class="tab-btn hover:bg-emerald-800 px-3 py-2 rounded-md font-medium transition" data-target="lab">Virtual Lab</button>
+                    <button onclick="openTab('game')" class="tab-btn hover:bg-emerald-800 px-3 py-2 rounded-md font-medium transition" data-target="game">Game Interaktif</button>
+                    <button onclick="openTab('quiz')" class="tab-btn hover:bg-emerald-800 px-3 py-2 rounded-md font-medium transition" data-target="quiz">Quiz (20 Soal)</button>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-white hover:text-emerald-200 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-emerald-800 pb-3 px-2 shadow-inner">
+            <button onclick="openTab('materi'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-medium text-white hover:bg-emerald-600">Materi Detail</button>
+            <button onclick="openTab('islam'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-medium text-white hover:bg-emerald-600">Integrasi Islam</button>
+            <button onclick="openTab('lab'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-medium text-white hover:bg-emerald-600">Virtual Lab</button>
+            <button onclick="openTab('game'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-medium text-white hover:bg-emerald-600">Game Interaktif</button>
+            <button onclick="openTab('quiz'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-medium text-white hover:bg-emerald-600">Quiz (20 Soal)</button>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-b from-emerald-100 to-gray-50 py-12 border-b border-emerald-200">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-emerald-900 mb-4 drop-shadow-sm">Sistem Pencernaan Manusia</h1>
+            <p class="text-lg md:text-xl text-emerald-700 mb-6 font-medium">Menjelajahi Keajaiban Mesin Pengolah Energi Tubuh Kita</p>
+            <div class="inline-flex items-center bg-white px-5 py-2 rounded-full shadow-sm border border-emerald-100">
+                <i class="fas fa-user-tie text-emerald-600 mr-2"></i>
+                <p class="text-sm text-gray-600">
+                    Disusun oleh: <span class="font-bold text-emerald-800">Alpan Ibrahim S.Si.</span> | MTsN 1 Kota Malang
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 mb-16">
+
+        <section id="materi" class="tab-content active">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-10">
+                <h2 class="text-3xl font-bold text-emerald-800 mb-6 flex items-center border-b border-gray-100 pb-4">
+                    <i class="fas fa-route mr-4 text-emerald-500"></i> Perjalanan Panjang Makanan
+                </h2>
+                
+                <div class="prose max-w-none text-gray-700 text-lg leading-relaxed space-y-6">
+                    <p>
+                        Pernahkah kamu membayangkan apa yang terjadi pada sepotong ayam goreng setelah kamu menelannya? Tubuh kita tidak bisa langsung menyerap daging tersebut. Makanan harus dipecah menjadi molekul-molekul mikroskopis yang bisa masuk ke dalam sel. Inilah tugas utama <strong>Sistem Pencernaan</strong>.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-8 mt-8">
+                        <!-- Pencernaan Mekanis & Kimiawi -->
+                        <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                            <h3 class="text-xl font-bold text-blue-900 mb-3 flex items-center">
+                                <i class="fas fa-cogs mr-2 text-blue-500"></i> Dua Cara Pemecahan
+                            </h3>
+                            <ul class="space-y-3 text-base">
+                                <li><strong>Pencernaan Mekanis:</strong> Menghancurkan makanan secara fisik menjadi potongan kecil (contoh: dikunyah gigi atau diaduk di lambung). Tujuannya untuk memperluas permukaan makanan.</li>
+                                <li><strong>Pencernaan Kimiawi:</strong> Memecah ikatan molekul kompleks menjadi sederhana menggunakan <strong>Enzim</strong>. (contoh: protein menjadi asam amino).</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Rute Pencernaan -->
+                        <div class="bg-orange-50 p-6 rounded-xl border border-orange-100">
+                            <h3 class="text-xl font-bold text-orange-900 mb-3 flex items-center">
+                                <i class="fas fa-map-marker-alt mr-2 text-orange-500"></i> Rute Utama
+                            </h3>
+                            <div class="flex items-center text-sm font-bold text-orange-800 flex-wrap gap-2">
+                                <span>Mulut</span> <i class="fas fa-arrow-right"></i>
+                                <span>Kerongkongan</span> <i class="fas fa-arrow-right"></i>
+                                <span>Lambung</span> <i class="fas fa-arrow-right"></i>
+                                <span>Usus Halus</span> <i class="fas fa-arrow-right"></i>
+                                <span>Usus Besar</span> <i class="fas fa-arrow-right"></i>
+                                <span>Rektum/Anus</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-8 border border-emerald-100 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i class="fas fa-microscope text-9xl text-emerald-900"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-emerald-900 mb-4 flex items-center z-10 relative">
+                            <i class="fas fa-lightbulb mr-3 text-yellow-500"></i> Analisis Tingkat Atas (Persiapan SMA)
+                        </h3>
+                        <p class="text-base text-gray-700 mb-4 z-10 relative">
+                            Di tingkat SMA, kalian tidak hanya menghafal nama organ, tetapi menganalisis <em>bagaimana</em> sistem ini bekerja secara efisien. Mari kita lihat lebih dalam:
+                        </p>
+                        
+                        <div class="grid md:grid-cols-3 gap-6 z-10 relative mt-6">
+                            <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-emerald-500">
+                                <h4 class="font-bold text-emerald-800 mb-2">1. Spesifisitas Enzim</h4>
+                                <p class="text-sm">Enzim bekerja seperti "Kunci dan Gembok" (<em>Lock and Key Theory</em>). Enzim <strong>Pepsin</strong> di lambung hanya memecah protein dan hanya aktif di lingkungan sangat asam (pH 2). Di usus halus yang basa, pepsin akan non-aktif.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-blue-500">
+                                <h4 class="font-bold text-blue-800 mb-2">2. Keajaiban Vili</h4>
+                                <p class="text-sm">Usus halus panjangnya sekitar 6 meter. Bagian dalamnya berlipat-lipat dan memiliki jonjot (Vili) serta Mikrovili. Stuktur ini memperluas area penyerapan hingga seukuran <strong>lapangan tenis</strong>! Tanpanya, kita akan kekurangan gizi.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-purple-500">
+                                <h4 class="font-bold text-purple-800 mb-2">3. Mikrobioma Usus</h4>
+                                <p class="text-sm">Usus besar bukan sekadar tempat pembuangan. Di sana hidup triliunan bakteri baik (flora normal) yang membusukkan sisa makanan dan memproduksi <strong>Vitamin K</strong> dan <strong>B12</strong> yang sangat penting bagi darah kita.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="islam" class="tab-content">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-10">
+                <h2 class="text-3xl font-bold text-emerald-800 mb-6 flex items-center border-b border-gray-100 pb-4">
+                    <i class="fas fa-kaaba mr-4 text-emerald-500"></i> Hikmah Ilahiah dalam Pencernaan
+                </h2>
+
+                <div class="grid md:grid-cols-5 gap-8">
+                    <div class="md:col-span-3 space-y-6">
+                        <p class="text-gray-700 text-lg">
+                            Desain sistem pencernaan manusia sangat rumit dan bekerja secara otomatis (saraf otonom). Ini adalah bukti nyata kebesaran Allah SWT dalam merancang tubuh kita.
+                        </p>
+                        
+                        <div class="bg-emerald-50 p-6 rounded-xl border border-emerald-200 text-center relative">
+                            <i class="fas fa-quote-right absolute top-4 right-4 text-3xl text-emerald-200"></i>
+                            <p class="arabic-text text-emerald-900 mb-4" dir="rtl">
+                                لَقَدْ خَلَقْنَا الْإِنْسَانَ فِي أَحْسَنِ تَقْوِيمٍ
+                            </p>
+                            <p class="text-md italic text-gray-700 mb-2 font-medium">
+                                "Sungguh, Kami telah menciptakan manusia dalam bentuk yang sebaik-baiknya."
+                            </p>
+                            <p class="font-bold text-emerald-700 text-sm">(QS. At-Tin: 4)</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-sun mr-2 text-yellow-500"></i> Adab Makan Sesuai Sunnah & Analisis Medis
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start bg-gray-50 p-4 rounded-lg">
+                                    <div class="bg-emerald-100 p-2 rounded-full mr-4 text-emerald-600">
+                                        <i class="fas fa-teeth"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800">Mengunyah Makanan Sampai Halus</h4>
+                                        <p class="text-sm text-gray-600 mt-1"><strong>Sunnah:</strong> Dianjurkan mengunyah makanan (beberapa riwayat menyebut 32 kali).<br>
+                                        <strong>Analisis Medis:</strong> Pencernaan mekanis di mulut sangat krusial. Semakin halus makanan, semakin luas permukaannya. Hal ini membuat enzim di lambung dan usus bekerja lebih cepat dan mencegah beban berlebih pada lambung (mencegah GERD).</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start bg-gray-50 p-4 rounded-lg">
+                                    <div class="bg-emerald-100 p-2 rounded-full mr-4 text-emerald-600">
+                                        <i class="fas fa-chair"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800">Makan Sambil Duduk</h4>
+                                        <p class="text-sm text-gray-600 mt-1"><strong>Sunnah:</strong> Larangan makan dan minum sambil berdiri.<br>
+                                        <strong>Analisis Medis:</strong> Saat duduk, sistem saraf parasimpatik (mode "rest and digest") lebih aktif. Sfinkter (katup) lambung lebih relaks, memungkinkan makanan mengalir perlahan, mencegah terjadinya refluks asam lambung.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <div class="bg-red-50 p-6 rounded-xl border border-red-100 h-full">
+                            <h3 class="text-xl font-bold text-red-800 mb-4 text-center">
+                                Bahaya Makanan Haram & Tidak Thoyyib
+                            </h3>
+                            <ul class="space-y-4">
+                                <li class="bg-white p-4 rounded shadow-sm">
+                                    <h5 class="font-bold text-gray-800"><i class="fas fa-wine-glass text-red-500 mr-2"></i>Khamr (Alkohol)</h5>
+                                    <p class="text-xs text-gray-600 mt-1">Alkohol sangat merusak hati (hepar). Hati berfungsi menetralisir racun dan memproduksi empedu. Kerusakan hati (sirosis) akan menghentikan proses metabolisme racun dan pencernaan lemak.</p>
+                                </li>
+                                <li class="bg-white p-4 rounded shadow-sm">
+                                    <h5 class="font-bold text-gray-800"><i class="fas fa-hamburger text-red-500 mr-2"></i>Berlebihan (Israf)</h5>
+                                    <p class="text-xs text-gray-600 mt-1">Terlalu banyak makan (melebihi kapasitas 1/3 makanan, 1/3 air, 1/3 udara) memaksa lambung mengembang ekstrem, menekan diafragma (susah napas), dan lambung harus memproduksi asam berlebih yang bisa melukai dinding lambung (Tukak lambung).</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lab" class="tab-content">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-10">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-emerald-800 mb-2">
+                        <i class="fas fa-flask text-emerald-500 mr-2"></i> Lab Virtual: Spesifisitas Enzim
+                    </h2>
+                    <p class="text-gray-600">Simulasikan organ mana yang memecah jenis makanan tertentu.</p>
+                </div>
+
+                <div class="grid md:grid-cols-12 gap-8">
+                    <!-- Controls -->
+                    <div class="md:col-span-4 space-y-6">
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <label class="block font-bold text-gray-700 mb-2">1. Pilih Makronutrien:</label>
+                            <select id="labFood" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                <option value="">-- Pilih Makanan --</option>
+                                <option value="karbo">Karbohidrat (Nasi/Roti)</option>
+                                <option value="protein">Protein (Daging/Telur)</option>
+                                <option value="lemak">Lemak (Mentega/Minyak)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <label class="block font-bold text-gray-700 mb-2">2. Pilih Lokasi / Enzim:</label>
+                            <select id="labOrgan" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                <option value="">-- Pilih Organ --</option>
+                                <option value="mulut">Mulut (Enzim Ptialin/Amilase)</option>
+                                <option value="lambung">Lambung (Asam Klorida + Pepsin)</option>
+                                <option value="usus">Usus Halus (Lipase, Tripsin, Empedu)</option>
+                            </select>
+                        </div>
+
+                        <button onclick="runLab()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition transform active:scale-95 flex justify-center items-center">
+                            <i class="fas fa-play mr-2"></i> Mulai Reaksi
+                        </button>
+                    </div>
+
+                    <div class="md:col-span-8 bg-slate-800 rounded-xl p-6 relative flex flex-col items-center justify-center min-h-[350px] shadow-inner overflow-hidden">
+                        
+                        <!-- Visualization area -->
+                        <div class="relative w-64 h-64 border-b-8 border-l-8 border-r-8 border-white/20 rounded-b-3xl bg-slate-700/50 flex items-end justify-center pb-4">
+                            
+                            <!-- Liquid/Content representation -->
+                            <div id="labAnimation" class="w-full mx-2 rounded-b-2xl h-12 bg-slate-600 lab-beaker flex items-center justify-center text-2xl relative overflow-hidden">
+                                <span id="labIcon" class="text-white/50"><i class="fas fa-question"></i></span>
+                                <!-- Particles overlay -->
+                                <div id="particles" class="absolute inset-0 hidden"></div>
+                            </div>
+
+                            <!-- Label -->
+                            <div class="absolute -bottom-10 text-white font-mono text-sm tracking-widest text-center w-full">
+                                ZONA REAKSI
+                            </div>
+                        </div>
+
+                        <!-- Result Text -->
+                        <div id="labResult" class="mt-14 w-full bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 text-center min-h-[80px] flex items-center justify-center">
+                            <p class="text-emerald-300 italic">Pilih makanan dan lokasi organ, lalu klik "Mulai Reaksi".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="game" class="tab-content">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-10">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-bold text-emerald-800 mb-2">
+                        <i class="fas fa-gamepad text-emerald-500 mr-2"></i> Misi: Susun Saluran Pencernaan
+                    </h2>
+                    <p class="text-gray-600">Urutkan organ pencernaan mulai dari pertama masuk hingga pembuangan akhir. Klik organ di bawah secara berurutan!</p>
+                </div>
+
+                <div class="max-w-3xl mx-auto">
+                    <!-- Progress / Target Slots -->
+                    <div class="mb-8">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-gray-700">Urutan Benar:</span>
+                            <span id="gameTimer" class="font-mono font-bold text-xl text-emerald-600">00:00</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 justify-center bg-gray-50 p-4 rounded-xl border border-gray-200" id="slotContainer">
+                            <!-- Slots generated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Available Organs to Click -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="organContainer">
+                        <!-- Organs generated by JS -->
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <button id="btnStartGame" onclick="startGame()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
+                            <i class="fas fa-play mr-2"></i> Mulai Main
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz" class="tab-content">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-10">
+                <h2 class="text-3xl font-bold text-emerald-800 mb-2 flex items-center">
+                    <i class="fas fa-clipboard-check mr-3 text-emerald-500"></i> Evaluasi Konsep
+                </h2>
+                <p class="text-gray-600 mb-8 border-b border-gray-100 pb-4">Jawablah 20 pertanyaan analisis berikut untuk mengukur pemahamanmu. Pilih jawaban yang paling tepat.</p>
+
+                <div id="quizContainer" class="space-y-6">
+                    <!-- Quiz Questions injected here via JS -->
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-gray-200 text-center">
+                    <button onclick="calculateScore()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-10 rounded-full shadow-xl text-lg transition transform hover:scale-105">
+                        Kumpulkan Jawaban
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-emerald-900 text-emerald-100 py-8 text-center border-t-4 border-emerald-500">
+        <p class="font-medium text-lg">&copy; 2026 Media Ajar IPA Terpadu Kelas 8.</p>
+        <p class="mt-1 opacity-80">Disusun Khusus Untuk MTsN 1 Kota Malang</p>
+        <p class="text-sm mt-2 text-emerald-300 font-bold">Oleh: Alpan Ibrahim S.Si.</p>
+    </footer>
+
+    <!-- Custom Alert / Notification Modal -->
+    <div id="customAlert" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-[100] opacity-0 transition-opacity duration-300">
+        <div class="bg-white p-6 rounded-2xl max-w-sm w-full mx-4 shadow-2xl transform scale-95 transition-transform duration-300" id="alertBox">
+            <div class="text-center">
+                <i class="fas fa-exclamation-circle text-4xl text-yellow-500 mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-800 mb-2" id="alertTitle">Perhatian</h3>
+                <p class="text-gray-600 mb-6" id="alertMessage">Pesan di sini.</p>
+                <button onclick="closeCustomAlert()" class="bg-emerald-600 hover:bg-emerald-700 w-full text-white font-bold py-2 px-4 rounded-xl transition">
+                    Mengerti
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Result Modal -->
+    <div id="resultModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-[100] opacity-0 transition-opacity duration-300">
+        <div class="bg-white p-8 rounded-3xl max-w-md w-full mx-4 text-center shadow-2xl transform scale-95 transition-transform duration-300" id="resultBox">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Hasil Evaluasi</h3>
+            <p class="text-gray-600 mb-4">Skor Analisis & Konsep Kamu:</p>
+            
+            <div class="relative w-32 h-32 mx-auto mb-6">
+                <svg class="w-full h-full" viewBox="0 0 36 36">
+                    <path class="text-gray-200" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path id="scoreCircle" class="text-emerald-500" stroke-dasharray="0, 100" stroke-width="3" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-4xl font-extrabold text-gray-800" id="finalScoreText">0</span>
+                </div>
+            </div>
+
+            <p id="scoreFeedback" class="mb-6 font-medium text-lg text-gray-700"></p>
+            <button onclick="closeResultModal()" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-xl transition w-full">
+                Tutup Review
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if(btn.getAttribute('data-target') === tabId) {
+                    btn.classList.add('bg-emerald-800', 'shadow-inner');
+                } else {
+                    btn.classList.remove('bg-emerald-800', 'shadow-inner');
+                }
+            });
+            window.scrollTo(0, 0);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Init tab
+        document.querySelector('[data-target="materi"]').classList.add('bg-emerald-800', 'shadow-inner');
+
+        // Custom Alert Logic
+        function showCustomAlert(title, message) {
+            const alertBg = document.getElementById('customAlert');
+            const alertBox = document.getElementById('alertBox');
+            document.getElementById('alertTitle').innerText = title;
+            document.getElementById('alertMessage').innerText = message;
+            
+            alertBg.classList.remove('hidden');
+            alertBg.classList.add('flex');
+            
+            // Trigger reflow for animation
+            void alertBg.offsetWidth;
+            
+            alertBg.classList.remove('opacity-0');
+            alertBox.classList.remove('scale-95');
+        }
+
+        function closeCustomAlert() {
+            const alertBg = document.getElementById('customAlert');
+            const alertBox = document.getElementById('alertBox');
+            
+            alertBg.classList.add('opacity-0');
+            alertBox.classList.add('scale-95');
+            
+            setTimeout(() => {
+                alertBg.classList.add('hidden');
+                alertBg.classList.remove('flex');
+            }, 300);
+        }
+
+        function runLab() {
+            const food = document.getElementById('labFood').value;
+            const organ = document.getElementById('labOrgan').value;
+            const animBox = document.getElementById('labAnimation');
+            const icon = document.getElementById('labIcon');
+            const resultBox = document.getElementById('labResult');
+            const particles = document.getElementById('particles');
+
+            if(!food || !organ) {
+                showCustomAlert("Lab Belum Siap", "Pilih jenis makanan dan organ terlebih dahulu!");
+                return;
+            }
+
+            // Reset Animation
+            animBox.style.height = '3rem';
+            animBox.style.backgroundColor = '#475569'; // slate-600
+            icon.innerHTML = '<i class="fas fa-spinner fa-spin text-white"></i>';
+            resultBox.innerHTML = '<p class="text-white">Menganalisis reaksi biokimia...</p>';
+            particles.classList.add('hidden');
+            particles.style.background = 'none';
+
+            // Simulate process delay
+            setTimeout(() => {
+                let bgCol = '';
+                let resultText = '';
+                let iconHtml = '';
+
+                // Logic matrix
+                if (food === 'karbo' && organ === 'mulut') {
+                    bgCol = '#3b82f6'; // blue
+                    animBox.style.height = '12rem';
+                    iconHtml = 'Glukosa';
+                    resultText = `<p class="text-blue-300 font-bold text-lg"><i class="fas fa-check-circle"></i> REAKSI POSITIF!</p>
+                                  <p class="text-white text-sm mt-1">Enzim <strong>Amilase (Ptialin)</strong> di mulut memecah Karbohidrat kompleks (Amilum) menjadi zat gula sederhana (Maltosa/Glukosa). Makanya nasi terasa manis jika dikunyah lama.</p>`;
+                } 
+                else if (food === 'protein' && organ === 'lambung') {
+                    bgCol = '#eab308'; // yellow
+                    animBox.style.height = '12rem';
+                    iconHtml = 'Pepton';
+                    resultText = `<p class="text-yellow-300 font-bold text-lg"><i class="fas fa-check-circle"></i> REAKSI POSITIF!</p>
+                                  <p class="text-white text-sm mt-1">Asam Klorida (HCl) mengaktifkan enzim <strong>Pepsin</strong>. Pepsin merombak ikatan Protein (daging) menjadi <strong>Pepton</strong> (molekul lebih kecil). Daging mulai hancur di sini.</p>`;
+                }
+                else if (food === 'lemak' && organ === 'usus') {
+                    bgCol = '#10b981'; // emerald
+                    animBox.style.height = '12rem';
+                    iconHtml = 'Asam Lemak';
+                    // css for emulsion bubbles
+                    particles.classList.remove('hidden');
+                    particles.style.backgroundImage = 'radial-gradient(circle, rgba(255,255,255,0.4) 10%, transparent 20%)';
+                    particles.style.backgroundSize = '20px 20px';
+                    
+                    resultText = `<p class="text-emerald-300 font-bold text-lg"><i class="fas fa-check-circle"></i> REAKSI POSITIF!</p>
+                                  <p class="text-white text-sm mt-1">Cairan Empedu mengemulsikan Lemak (membuatnya larut air), lalu enzim <strong>Lipase Pankreas</strong> memecahnya menjadi <strong>Asam Lemak & Gliserol</strong> yang siap diserap vili usus.</p>`;
+                }
+                else {
+                    // Mismatches
+                    bgCol = '#ef4444'; // red
+                    animBox.style.height = '6rem';
+                    iconHtml = '<i class="fas fa-times text-white/50"></i>';
+                    
+                    if (organ === 'mulut') {
+                        resultText = `<p class="text-red-300 font-bold"><i class="fas fa-times-circle"></i> Tidak Ada Pencernaan Kimiawi Signifikan</p>
+                                      <p class="text-white text-sm mt-1">Mulut hanya memiliki enzim Amilase untuk Karbohidrat. Protein dan Lemak hanya dicerna secara mekanis (dikunyah) di sini.</p>`;
+                    } else if (organ === 'lambung') {
+                        resultText = `<p class="text-red-300 font-bold"><i class="fas fa-times-circle"></i> Enzim Salah Target / Inaktif</p>
+                                      <p class="text-white text-sm mt-1">Lambung fokus mencerna Protein menggunakan Pepsin. Enzim Amilase dari mulut mati akibat asam lambung (pH 2). Lemak juga belum bisa dicerna optimal di sini.</p>`;
+                    } else {
+                        resultText = `<p class="text-blue-200 font-bold"><i class="fas fa-info-circle"></i> Reaksi Lanjutan</p>
+                                      <p class="text-white text-sm mt-1">Sebenarnya di Usus Halus, Karbohidrat dan Protein <em>juga</em> terus dicerna oleh enzim lain (Maltase, Tripsin). Namun enzim paling ikonik untuk uji ini adalah Lipase untuk Lemak.</p>`;
+                        bgCol = '#6366f1';
+                        animBox.style.height = '10rem';
+                    }
+                }
+
+                animBox.style.backgroundColor = bgCol;
+                icon.innerHTML = `<span class="font-bold text-white tracking-widest">${iconHtml}</span>`;
+                resultBox.innerHTML = resultText;
+
+            }, 800);
+        }
+
+        const correctOrder = [
+            { id: 'mulut', name: 'Mulut', icon: 'fa-teeth' },
+            { id: 'kerongkongan', name: 'Kerongkongan', icon: 'fa-arrows-alt-v' },
+            { id: 'lambung', name: 'Lambung', icon: 'fa-box' }, // Approximated icons
+            { id: 'usus-halus', name: 'Usus Halus', icon: 'fa-wind' },
+            { id: 'usus-besar', name: 'Usus Besar', icon: 'fa-bullseye' },
+            { id: 'anus', name: 'Anus', icon: 'fa-door-open' }
+        ];
+        
+        let currentOrder = [];
+        let gameActive = false;
+        let timerInterval;
+        let seconds = 0;
+
+        function initGameUI() {
+            const slotContainer = document.getElementById('slotContainer');
+            const organContainer = document.getElementById('organContainer');
+            
+            slotContainer.innerHTML = '';
+            organContainer.innerHTML = '';
+
+            // Create empty slots
+            for(let i=0; i<correctOrder.length; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'w-10 h-10 md:w-12 md:h-12 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center text-gray-400 font-bold text-lg';
+                slot.innerText = i+1;
+                slot.id = `slot-${i}`;
+                slotContainer.appendChild(slot);
+            }
+            
+            // Create shuffle buttons (disabled initially)
+            const shuffled = [...correctOrder].sort(() => Math.random() - 0.5);
+            shuffled.forEach(org => {
+                const btn = document.createElement('div');
+                btn.className = 'organ-card bg-white border-2 border-gray-200 rounded-xl p-4 text-center text-gray-500 cursor-not-allowed opacity-70';
+                btn.innerHTML = `<i class="fas ${org.icon} text-2xl mb-2"></i><div class="font-bold text-sm md:text-base">${org.name}</div>`;
+                btn.id = `btn-${org.id}`;
+                organContainer.appendChild(btn);
+            });
+        }
+
+        function startGame() {
+            currentOrder = [];
+            seconds = 0;
+            document.getElementById('gameTimer').innerText = "00:00";
+            document.getElementById('btnStartGame').style.display = 'none';
+            
+            const slotContainer = document.getElementById('slotContainer');
+            // reset slots
+            for(let i=0; i<correctOrder.length; i++) {
+                const slot = document.getElementById(`slot-${i}`);
+                slot.className = 'w-10 h-10 md:w-12 md:h-12 border-2 border-dashed border-emerald-400 rounded-lg flex items-center justify-center text-emerald-400 font-bold text-lg bg-emerald-50';
+                slot.innerText = i+1;
+                slot.innerHTML = i+1; // clear content
+            }
+
+            const organContainer = document.getElementById('organContainer');
+            organContainer.innerHTML = '';
+            
+            const shuffled = [...correctOrder].sort(() => Math.random() - 0.5);
+            shuffled.forEach(org => {
+                const btn = document.createElement('div');
+                btn.className = 'organ-card bg-white border-2 border-emerald-300 hover:border-emerald-500 rounded-xl p-4 text-center text-emerald-800 shadow-sm';
+                btn.innerHTML = `<i class="fas ${org.icon} text-2xl mb-2 text-emerald-600"></i><div class="font-bold text-sm md:text-base">${org.name}</div>`;
+                btn.id = `btn-${org.id}`;
+                btn.onclick = () => selectOrgan(org, btn);
+                organContainer.appendChild(btn);
+            });
+
+            gameActive = true;
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                seconds++;
+                const m = Math.floor(seconds/60).toString().padStart(2, '0');
+                const s = (seconds%60).toString().padStart(2, '0');
+                document.getElementById('gameTimer').innerText = `${m}:${s}`;
+            }, 1000);
+        }
+
+        function selectOrgan(org, btnElement) {
+            if(!gameActive) return;
+
+            const expectedIndex = currentOrder.length;
+            const expectedOrg = correctOrder[expectedIndex];
+
+            if(org.id === expectedOrg.id) {
+                // Correct
+                currentOrder.push(org);
+                btnElement.style.visibility = 'hidden'; // Hide the button
+                
+                // Fill slot
+                const slot = document.getElementById(`slot-${expectedIndex}`);
+                slot.className = 'w-auto px-3 py-1 md:px-4 md:py-2 border-2 border-emerald-500 rounded-lg flex items-center justify-center text-emerald-800 font-bold text-sm md:text-base bg-emerald-100 shadow-sm';
+                slot.innerHTML = `<i class="fas ${org.icon} mr-2"></i> ${org.name}`;
+
+                // Check Win
+                if(currentOrder.length === correctOrder.length) {
+                    gameActive = false;
+                    clearInterval(timerInterval);
+                    showCustomAlert("Misi Berhasil!", `Kamu berhasil menyusun saluran pencernaan dalam waktu ${document.getElementById('gameTimer').innerText}!`);
+                    document.getElementById('btnStartGame').style.display = 'inline-block';
+                    document.getElementById('btnStartGame').innerText = "Main Lagi";
+                }
+            } else {
+                // Wrong
+                btnElement.classList.add('bg-red-100', 'border-red-500', 'animate-pulse');
+                setTimeout(() => {
+                    btnElement.classList.remove('bg-red-100', 'border-red-500', 'animate-pulse');
+                }, 500);
+            }
+        }
+
+        // Initialize Game UI on load
+        window.addEventListener('DOMContentLoaded', initGameUI);
+
+        const quizData = [
+            { q: "1. Organ pencernaan manusia tempat terjadinya pencernaan mekanis dan kimiawi sekaligus untuk pertama kalinya adalah...", options: ["Lambung", "Kerongkongan", "Usus Halus", "Mulut"], answer: 3 },
+            { q: "2. Enzim ptialin (amilase) yang ada di air liur bertugas memecah karbohidrat. Apa hasil akhir dari pemecahan awal ini?", options: ["Asam Amino", "Maltosa/Glukosa", "Asam Lemak", "Pepton"], answer: 1 },
+            { q: "3. Gerakan meremas-remas dan mendorong makanan yang terjadi di kerongkongan (esofagus) disebut gerakan...", options: ["Gravitasi", "Peristaltik", "Otonom", "Mekanik"], answer: 1 },
+            { q: "4. Lambung menghasilkan Asam Klorida (HCl). Analisis fungsi utama HCl yang paling tepat adalah...", options: ["Membunuh kuman penyakit dan mengaktifkan pepsin", "Memecah karbohidrat menjadi glukosa", "Menyerap air dan mineral", "Menetralkan racun dalam makanan"], answer: 0 },
+            { q: "5. Enzim Pepsin di lambung memiliki sifat 'spesifik'. Artinya, pepsin hanya bekerja untuk memecah...", options: ["Lemak menjadi gliserol", "Karbohidrat menjadi gula", "Protein menjadi pepton", "Vitamin menjadi mineral"], answer: 2 },
+            { q: "6. (Materi SMA) Usus halus manusia terdiri dari tiga bagian. Tempat bermuaranya saluran dari kantung empedu dan pankreas adalah di...", options: ["Duodenum (Usus 12 jari)", "Jejunum (Usus kosong)", "Ileum (Usus penyerapan)", "Kolon (Usus besar)"], answer: 0 },
+            { q: "7. Cairan empedu diproduksi oleh Hati (Hepar) dan ditampung di kantung empedu. Fungsi empedu bukanlah sebagai enzim, melainkan untuk...", options: ["Memecah protein menjadi asam amino", "Mengemulsikan lemak agar larut dan mudah dicerna lipase", "Membunuh bakteri di usus", "Membentuk feses"], answer: 1 },
+            { q: "8. Mengapa dinding usus halus (Ileum) memiliki lipatan-lipatan kecil yang disebut Vili (jonjot usus)?", options: ["Untuk mendorong sisa makanan ke usus besar", "Untuk membunuh bakteri jahat", "Untuk memperluas permukaan sehingga penyerapan sari makanan maksimal", "Untuk menetralkan asam lambung"], answer: 2 },
+            { q: "9. Proses penyerapan nutrisi ke dalam pembuluh darah (absorpsi) mayoritas terjadi di organ...", options: ["Lambung", "Usus Besar", "Usus Halus", "Hati"], answer: 2 },
+            { q: "10. Sisa makanan yang tidak terserap akan masuk ke Usus Besar. Fungsi utama Usus Besar adalah...", options: ["Mencerna kembali lemak yang tersisa", "Menyerap kembali air berlebih dan membentuk feses", "Menghancurkan protein", "Menyerap glukosa"], answer: 1 },
+            { q: "11. Di dalam usus besar manusia hidup bakteri Escherichia coli (E. coli). Hubungan simbiosis ini menguntungkan manusia karena bakteri tersebut membantu...", options: ["Membentuk Vitamin K dan membusukkan sisa makanan", "Menyerap air dari feses", "Membunuh virus yang tertelan", "Memproduksi enzim lipase"], answer: 0 },
+            { q: "12. Dalam surat At-Tin ayat 4 disebutkan manusia diciptakan dalam \"bentuk yang sebaik-baiknya\". Hal ini terbukti dari sistem kerja enzim yang dipengaruhi pH (derajat keasaman). Enzim pepsin bekerja optimal pada pH...", options: ["Basa (pH > 7)", "Netral (pH 7)", "Sangat Asam (pH 1-3)", "Berubah-ubah"], answer: 2 },
+            { q: "13. Sunnah Nabi Muhammad SAW menganjurkan makan sambil duduk. Analisis medis yang mendukung sunnah ini berkaitan dengan...", options: ["Aktifnya saraf parasimpatik yang membuat katup lambung rileks dan mencegah asam lambung naik", "Makanan akan langsung jatuh ke usus besar", "Mencegah gigi berlubang", "Mempercepat pengosongan lambung"], answer: 0 },
+            { q: "14. Mengunyah makanan sampai halus (sunnah 32 kunyahan) sangat penting secara biologis karena...", options: ["Membuat kita cepat kenyang", "Memperluas permukaan bidang sentuh makanan sehingga kerja enzim pencernaan lebih cepat", "Mencegah bakteri masuk ke lambung", "Menghindari tersedak air liur"], answer: 1 },
+            { q: "15. Islam melarang konsumsi Khamr (Alkohol) secara mutlak. Organ pencernaan (kelenjar) yang paling menderita dan bisa mengalami sirosis akibat dipaksa menetralisir racun alkohol adalah...", options: ["Pankreas", "Lambung", "Hati (Hepar)", "Usus Besar"], answer: 2 },
+            { q: "16. Penyakit Maag (Gastritis) terjadi karena iritasi pada dinding lambung. Hal ini umumnya disebabkan oleh...", options: ["Kurangnya enzim pepsin", "Produksi asam lambung (HCl) berlebih dan jadwal makan tidak teratur", "Bakteri E.coli yang berpindah ke lambung", "Terlalu banyak minum air putih"], answer: 1 },
+            { q: "17. Jika seseorang mengalami diare, berarti terjadi gangguan pada sistem pencernaan di mana...", options: ["Lambung tidak memproduksi asam", "Penyerapan air di usus besar sangat rendah / terganggu", "Usus halus gagal menyerap protein", "Kerongkongan gagal melakukan peristaltik"], answer: 1 },
+            { q: "18. Zat gizi yang diserap langsung oleh kapiler darah tanpa harus dipecah terlebih dahulu oleh enzim adalah...", options: ["Karbohidrat dan Protein", "Lemak", "Vitamin, Mineral, dan Air", "Amilum"], answer: 2 },
+            { q: "19. Pankreas mengeluarkan getah pankreas ke usus halus yang mengandung enzim Lipase, Amilase, dan Tripsin. Tripsin berfungsi untuk...", options: ["Memecah lemak menjadi asam lemak", "Memecah protein / pepton menjadi asam amino", "Memecah karbohidrat menjadi gula", "Menetralkan racun"], answer: 1 },
+            { q: "20. Makan berlebihan (Israf) dilarang dalam Islam. Secara analisis medis, kekenyangan ekstrem akan...", options: ["Membuat usus besar mengecil", "Menekan diafragma paru-paru dan memaksa lambung over-sekresi asam", "Meningkatkan fungsi bakteri baik di usus", "Mencegah penyakit maag"], answer: 1 }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            let html = '';
+            
+            quizData.forEach((q, index) => {
+                html += `
+                <div class="mb-6 p-5 bg-gray-50 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md">
+                    <p class="font-bold text-gray-800 mb-4 leading-relaxed">${q.q}</p>
+                    <div class="space-y-3 pl-2">
+                        ${q.options.map((opt, i) => `
+                            <label class="flex items-start space-x-3 cursor-pointer p-3 rounded-lg hover:bg-emerald-50 transition border border-transparent hover:border-emerald-200">
+                                <div class="flex-shrink-0 mt-0.5">
+                                    <input type="radio" name="q${index}" value="${i}" class="w-5 h-5 text-emerald-600 focus:ring-emerald-500 border-gray-300">
+                                </div>
+                                <span class="text-gray-700 font-medium">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function calculateScore() {
+            let score = 0;
+            let answered = 0;
+
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if(selected) {
+                    answered++;
+                    if(parseInt(selected.value) === q.answer) {
+                        score += 5; // 20 questions * 5 points = 100 max
+                    }
+                }
+            });
+
+            if(answered < quizData.length) {
+                showCustomAlert("Belum Selesai!", `Kamu baru menjawab ${answered} dari ${quizData.length} soal. Silakan lengkapi dulu ya!`);
+                return;
+            }
+
+            // Show Result
+            const modal = document.getElementById('resultModal');
+            const resultBox = document.getElementById('resultBox');
+            const scoreText = document.getElementById('finalScoreText');
+            const circle = document.getElementById('scoreCircle');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            void modal.offsetWidth; // trigger reflow
+            modal.classList.remove('opacity-0');
+            resultBox.classList.remove('scale-95');
+
+            // Animate Score Counter
+            let currScore = 0;
+            scoreText.innerText = 0;
+            const dashOffset = 100 - (score);
+            circle.style.strokeDashoffset = 100;
+            
+            // CSS transition for circle
+            setTimeout(() => {
+                circle.style.transition = 'stroke-dasharray 1.5s ease-out';
+                circle.setAttribute('stroke-dasharray', `${score}, 100`);
+            }, 100);
+
+            const interval = setInterval(() => {
+                if(currScore >= score) {
+                    clearInterval(interval);
+                    scoreText.innerText = score;
+                } else {
+                    currScore++;
+                    scoreText.innerText = currScore;
+                }
+            }, 15);
+            
+            let feedback = "";
+            if(score >= 90) feedback = "Luar biasa! Pemahaman konsep dan analisismu setingkat anak SMA!";
+            else if(score >= 75) feedback = "Hebat! Kamu menguasai sistem pencernaan dengan sangat baik.";
+            else if(score >= 60) feedback = "Cukup baik. Yuk baca ulang detail tentang kerja enzim!";
+            else feedback = "Jangan menyerah! Coba eksplorasi lagi materi di halaman depan.";
+            
+            document.getElementById('scoreFeedback').innerText = feedback;
+        }
+
+        function closeResultModal() {
+            const modal = document.getElementById('resultModal');
+            const resultBox = document.getElementById('resultBox');
+            
+            modal.classList.add('opacity-0');
+            resultBox.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+            
+            // Scroll to top
+            window.scrollTo(0,0);
+        }
+
+        // Initialize App
+        window.onload = () => {
+            renderQuiz();
+        };
+
+    </script>
+</body>
+</html>
